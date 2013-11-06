@@ -24,7 +24,7 @@ DEPLIBS	=       -l CAENVME -l curses -l mysqlclient -L ${ROOTSYS}/lib/ -lCore
 
 LIBS	=
  
-INCLUDEDIR =	$(ROOTSYS)/include/
+INCLUDEDIR =	$(ROOTSYS)/include/ 
 
 OBJS	=	TrDAQ.o TrHistogram.o TrSpillData.o TrRunData.o	TrVMEModeChanger.o \
 		TrReadout.o TrGenerator.o TrHeaders.o TrDAQManager.o TrElectronics.o \

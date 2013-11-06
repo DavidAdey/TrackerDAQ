@@ -21,6 +21,7 @@ class TrDAQManager {
 		int host;
 		int status; /* 0=idle, 1=triggering, 2=readout, 3=building, 4=writing */
 		int connected;
+		int nSpills;
 		TrSocketServer socket;
 		TrGenerator generator;
 		TrRunData* dataBuffer;
@@ -33,6 +34,7 @@ class TrDAQManager {
 	public:
 
 		TrDAQManager(std::string);
+		int setNumberOfSpills(int);
 		int setTriggerMode();
 		int setReadoutMode();
 		int trigger(double);

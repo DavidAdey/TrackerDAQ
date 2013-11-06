@@ -26,6 +26,8 @@ class TrVLSBController : public TrVMEDevice {
 		int readBank(int, int, int*);
 		int* readAllBanks();
 		int getTotalDataVolume();
+		int verifyBankSpill(int*, int, int);
+		int calculateCRC(int*, int);
 		int getID();	
 };
 

@@ -11,6 +11,11 @@ TrDAQManager::TrDAQManager(std::string file) {
 	fileName = file;
 }
 
+int TrDAQManager::setNumberOfSpills(int spills) {
+	nSpills = spills;
+	return 0;
+}
+
 int TrDAQManager::setTriggerMode() {
 	readoutController.setDataMode();
 	return 0;
@@ -115,7 +120,7 @@ int TrDAQManager::transmit() {
 }
 
 void TrDAQManager::go() {
-	for (int spill=0; spill<5; spill++) {
+	for (int spill=0; spill<nSpills; spill++) {
 		if ((spill % 10) == 0) {
 			std::cout << "Generated " << spill << " spills" << std::endl;
 		}

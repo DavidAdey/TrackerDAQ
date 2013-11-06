@@ -2,6 +2,7 @@
 #include "TrHeaders.hh"
 #include <iostream>
 #include <vector>
+#include <stdlib.h>
 
 #ifndef TRHISTOGRAM_HH
 #define TRHISTOGRAM_HH

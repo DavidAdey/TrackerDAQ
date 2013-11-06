@@ -1,15 +1,11 @@
 #include "TrElectronics.hh"
 
 TrElectronics::TrElectronics() {
-
-	r = new TRandom();
+	//r = new TRandom();
 	parameters.insert( std::pair<std::string,double>("LEDMeanPE",2.0) );
-	
-
 }
 
 int TrElectronics::trigger(int board, int bank, int channel, int mode, double bias) {
-
 	//std::cout << "New trigger" << std::endl;
 	int pe = 0;
 	int dc = 0;
@@ -17,7 +13,7 @@ int TrElectronics::trigger(int board, int bank, int channel, int mode, double bi
 	switch (mode) {
 		case 1:
 			dc = int(0.2 * exp(bias));
-			pe = r->Poisson(dc);//int(parameters["LEDMeanPE"]));
+			pe = int(parameters["LEDMeanPE"]);
 			chargeTotal = chargeFromPE(board, bank, channel, pe);
 			break;	
 		case 2:
@@ -38,10 +34,10 @@ double TrElectronics::chargeFromPE(int board, int bank, int channel, int pe) {
 	double chargeTotal = 0.0;
 	for (int charge = 0; charge < pe; ++charge) {	
 		double chargeRaw = gainList[board][bank][channel];
-		double chargeReal = r->Gaus(chargeRaw,3.0);
+		double chargeReal = chargeRaw;
 		chargeTotal += chargeReal;	
 	}
-	double pedestal = r->Gaus(pedestalList[board][bank][channel],3.0);
+	double pedestal = pedestalList[board][bank][channel];
 	return (chargeTotal + pedestal);
 }
 

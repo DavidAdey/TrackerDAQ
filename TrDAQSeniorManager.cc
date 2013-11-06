@@ -28,9 +28,6 @@ int TrDAQSeniorManager::sendGoCommand() {
 	if (readBacks == 0x3) {}
 	return readBacks;
 }
-
-
-
 	
 int TrDAQSeniorManager::listenForData() {
 	return 0;

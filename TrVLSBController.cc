@@ -56,17 +56,17 @@ void TrVLSBController::getBankLengths() {
 			vmeStatus |= CAENVME_ReadCycle( 0,address, &bankLengths[bank], cvA32_U_DATA, cvD32);
 		}
 		catch(...) {
-			//std::cout << "VME Error" << std::endl;
+			std::cout << "VME Error" << std::endl;
 		}
 	}
 }
 
 void TrVLSBController::setReadoutMode() {
-	CAENVME_WriteCycle(0, addresses["lvdsControl"], &lvdsSetting["disableLVDS"], addressModifier, dataWidth);
+	CAENVME_WriteCycle(0, baseAddress + addresses["lvdsControl"], &lvdsSetting["disableLVDS"], addressModifier, dataWidth);
 }
 
 void TrVLSBController::setDataMode() {
-	CAENVME_WriteCycle(0, addresses["lvdsControl"], &lvdsSetting["enableLVDS"], addressModifier, dataWidth);
+	CAENVME_WriteCycle(0, baseAddress + addresses["lvdsControl"], &lvdsSetting["enableLVDS"], addressModifier, dataWidth);
 }
 
 int TrVLSBController::getTotalDataVolume() {
@@ -127,5 +127,17 @@ int TrVLSBController::readBank(int bank, int readoutMode, int* dataPointer = NUL
 
 }
 
-int TrVLSBController::getID() {return 0;}
+int TrVLSBController::verifyBankSpill(int* dataPointer, int dataVolume, int bankNumber) {
+	int crcAddress = baseAddress + addresses["bank0CRC"];
+	int afeCRC = 0;
+	int status = CAENVME_ReadCycle( 0,crcAddress, &afeCRC, cvA32_U_DATA, cvD32); 
+	int vlsbCRC = calculateCRC(dataPointer, dataVolume);
+	int verification = (afeCRC & vlsbCRC);
+	return verification;
+}
+
+int TrVLSBController::calculateCRC(int* dataPointer, int dataVolume) {
+	return 0;
+}
+int TrVLSBController::getID() {return baseAddress;}
 

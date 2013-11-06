@@ -19,7 +19,7 @@ void TrVLSBMasterController::setTriggerMode(std::string mode) {
 
 			case 0: // internal triggers
 				modeRegisterValue = triggerSetting["internal"];
-				modeRegisterValue = triggerSetting["noZeroSuppression"];
+				modeRegisterValue |= triggerSetting["noZeroSuppression"];
 				break;
 			case 1: // external
 				modeRegisterValue = triggerSetting["external"];

@@ -42,9 +42,11 @@ int main( int argc, char *argv[]) {
 */
 	double bias = atof(argv[2]);
 	std::string file = argv[1];
-	TH1F h1 = TH1F("a","a",10,0,10);
+	//TH1F h1 = TH1F("a","a",10,0,10);
 	TrDAQManager manager = TrDAQManager(argv[1]);
-	for (int spill=0; spill<5; spill++) {
+	manager.setNumberOfSpills(10);
+	manager.go();
+	/*for (int spill=0; spill<5; spill++) {
 		if ((spill % 1) == 0) {
 			std::cout << "Generated " << spill << " spills" << std::endl;
 		}
@@ -53,7 +55,7 @@ int main( int argc, char *argv[]) {
 		manager.setReadoutMode();
 		manager.readout();
 		manager.build();
-	}
+	}*/
 	manager.write();
 	//writeRunToFile(manager.getRunData());
 }
