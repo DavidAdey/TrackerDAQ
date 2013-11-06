@@ -17,13 +17,15 @@ class TrVLSBController : public TrVMEDevice {
 
 		/* Specific values and variables */
 		std::vector<int> bankLengths;
+		int id;
  	public:
  		TrVLSBController();
-		void initialise();
+		void initialise(int);
 		void setReadoutMode();
 		void setDataMode();
 		void getBankLengths();
 		int readBank(int, int, int*);
+		int moveData(int);
 		int* readAllBanks();
 		int getTotalDataVolume();
 		int verifyBankSpill(int*, int, int);
